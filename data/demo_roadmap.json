@@ -1,0 +1,200 @@
+{
+    "role": "Software Engineer",
+    "company": "Google",
+    "duration_weeks": 12,
+    "weekly_plan": [
+        {
+            "week": 1,
+            "focus": "Python Fundamentals & Coding Environment",
+            "topics": [
+                "Python data types, lists, dicts, sets",
+                "Functions, closures, decorators",
+                "File I/O and exception handling",
+                "Virtual environments and pip"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Solve 10 easy LeetCode Python problems",
+                "Build a CLI tool using Python argparse"
+            ]
+        },
+        {
+            "week": 2,
+            "focus": "Data Structures — Arrays & Strings",
+            "topics": [
+                "Two-pointer technique",
+                "Sliding window",
+                "String manipulation and hashing",
+                "Prefix sums"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Solve 15 array/string LeetCode problems (Easy–Medium)",
+                "Understand Big-O analysis for each solution"
+            ]
+        },
+        {
+            "week": 3,
+            "focus": "Linked Lists, Stacks & Queues",
+            "topics": [
+                "Singly and doubly linked lists",
+                "Fast & slow pointer (Floyd's algorithm)",
+                "Stack operations and monotonic stacks",
+                "Queue, deque, and priority queue (heapq)"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Implement a linked list class from scratch",
+                "Solve 10 stack/queue problems on LeetCode"
+            ]
+        },
+        {
+            "week": 4,
+            "focus": "Trees & Recursion",
+            "topics": [
+                "Binary trees: inorder, preorder, postorder traversal",
+                "Binary Search Trees (BST)",
+                "Recursive depth-first search (DFS)",
+                "Breadth-first search (BFS) with queues"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Implement BFS and DFS from scratch",
+                "Solve 15 tree problems on LeetCode"
+            ]
+        },
+        {
+            "week": 5,
+            "focus": "Graphs & Advanced Search",
+            "topics": [
+                "Graph representations (adjacency list, matrix)",
+                "DFS and BFS on graphs",
+                "Topological sort (Kahn's algorithm)",
+                "Union-Find (Disjoint Set Union)"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Implement graph traversal for 5 different problems",
+                "Complete the 'Graph' LeetCode study plan"
+            ]
+        },
+        {
+            "week": 6,
+            "focus": "Dynamic Programming — Foundations",
+            "topics": [
+                "Memoization vs tabulation",
+                "1D DP: Fibonacci, climbing stairs, coin change",
+                "2D DP: longest common subsequence, edit distance",
+                "Knapsack problem variations"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Solve 10 DP problems from NeetCode 150",
+                "Write top-down and bottom-up solutions for 3 problems"
+            ]
+        },
+        {
+            "week": 7,
+            "focus": "Sorting, Searching & Divide and Conquer",
+            "topics": [
+                "Merge sort, quicksort implementation",
+                "Binary search on sorted arrays and answer-space",
+                "Divide and conquer strategies",
+                "Heap sort and the k-th largest element"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Implement merge sort and quicksort from scratch",
+                "Solve 10 binary search problems"
+            ]
+        },
+        {
+            "week": 8,
+            "focus": "System Design — Core Concepts",
+            "topics": [
+                "Horizontal vs vertical scaling",
+                "Load balancers and reverse proxies",
+                "Databases: SQL vs NoSQL trade-offs",
+                "Caching strategies (Redis, CDN, write-through)"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Study the System Design Primer on GitHub",
+                "Design a URL shortener (like bit.ly) end-to-end"
+            ]
+        },
+        {
+            "week": 9,
+            "focus": "System Design — Distributed Systems",
+            "topics": [
+                "CAP theorem and consistency models",
+                "Message queues: Kafka, RabbitMQ",
+                "Sharding and partitioning strategies",
+                "Service discovery and microservices"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Design a distributed key-value store",
+                "Design a rate limiter for an API"
+            ]
+        },
+        {
+            "week": 10,
+            "focus": "Google-specific Preparation",
+            "topics": [
+                "Google's engineering culture and values",
+                "Googleyness and leadership principles",
+                "Large-scale systems at Google (MapReduce, Bigtable, Spanner)",
+                "Behavioral interview (STAR method)"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Prepare 5 STAR-method stories from past experience",
+                "Read 'Designing Data-Intensive Applications' Ch. 1-3"
+            ]
+        },
+        {
+            "week": 11,
+            "focus": "Mock Interviews & Weak Area Revision",
+            "topics": [
+                "Full mock coding interviews (45 min format)",
+                "Revisit hardest LeetCode problems",
+                "Review all system design concepts",
+                "Time management during coding interviews"
+            ],
+            "hours_per_day": 4,
+            "milestones": [
+                "Complete 3 full mock interviews (Pramp or Interviewing.io)",
+                "Solve 20 medium-level LeetCode problems"
+            ]
+        },
+        {
+            "week": 12,
+            "focus": "Final Polish & Interview Readiness",
+            "topics": [
+                "Solve hard LeetCode problems under time pressure",
+                "Review system design diagrams and notes",
+                "Practice 'think-aloud' coding style",
+                "Relaxation and confidence building techniques"
+            ],
+            "hours_per_day": 4,
+            "milestones": [
+                "Achieve 70%+ acceptance rate on LeetCode Hard problems",
+                "Feel confident with 2 complete system design walkthroughs"
+            ]
+        }
+    ],
+    "key_skills": [
+        "Data Structures & Algorithms",
+        "System Design",
+        "Python",
+        "Distributed Systems",
+        "Problem Solving"
+    ],
+    "recommended_projects": [
+        "Build a key-value store database from scratch",
+        "Implement a web crawler with BFS",
+        "Create a rate-limited REST API with Redis caching",
+        "Build a mini search engine with an inverted index"
+    ]
+}

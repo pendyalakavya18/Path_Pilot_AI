@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-8">
+    <h1 class="text-3xl font-bold mb-8 text-gray-800">AI Mock Interview</h1>
+
+    <div id="setupSection" class="bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto">
+        <h2 class="text-xl font-bold mb-6 text-gray-800">Start Interview Session</h2>
+
+        <div class="mb-6">
+            <label class="block text-gray-700 font-semibold mb-2">Topic</label>
+            <input type="text" id="topic"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                placeholder="e.g., System Design, Algorithms">
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-gray-700 font-semibold mb-2">Difficulty Level</label>
+            <div class="grid grid-cols-3 gap-4">
+                <button
+                    class="difficulty-btn px-4 py-3 border-2 border-green-600 text-green-600 rounded-lg hover:bg-green-50 transition"
+                    data-difficulty="Easy">Easy</button>
+                <button
+                    class="difficulty-btn px-4 py-3 border-2 border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition"
+                    data-difficulty="Medium">Medium</button>
+                <button
+                    class="difficulty-btn px-4 py-3 border-2 border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50 transition"
+                    data-difficulty="Hard">Hard</button>
+            </div>
+            <input type="hidden" id="difficulty" value="Easy">
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-gray-700 font-semibold mb-2">Number of Questions</label>
+            <select id="numQuestions"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+                <option value="3">3 Questions</option>
+                <option value="5">5 Questions</option>
+                <option value="7">7 Questions</option>
+            </select>
+        </div>
+
+        <button id="startInterviewBtn"
+            class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition">Start
+            Interview</button>
+
+        <div id="loading" class="hidden mt-6 text-center">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+            <p class="mt-4 text-gray-600">Preparing interview questions...</p>
+        </div>
+    </div>
+
+    <div id="interviewSection" class="hidden">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
+            <div class="mb-6">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-gray-800">Question <span id="currentQuestion">1</span> of <span
+                            id="totalQuestions">5</span></h2>
+                    <span class="bg-green-100 text-green-700 px-4 py-1 rounded-full font-semibold"
+                        id="difficultyBadge"></span>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4" id="questionText"></h3>
+
+                <div id="hintsSection" class="mb-4 hidden">
+                    <p class="text-sm text-gray-600 mb-2">Hints:</p>
+                    <ul id="hintsList" class="list-disc list-inside text-sm text-gray-600 space-y-1"></ul>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">Your Response</label>
+                <textarea id="responseText" rows="6"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                    placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <div class="flex gap-4">
+                <button id="showHintsBtn"
+                    class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">Show Hints</button>
+                <button id="submitResponseBtn"
+                    class="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">Submit
+                    Response</button>
+            </div>
+
+            <div id="evaluationSection" class="hidden mt-6 p-6 bg-gray-50 rounded-lg">
+                <h4 class="font-semibold text-gray-800 mb-3">Evaluation</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600">Technical</p>
+                        <p class="text-xl font-bold text-blue-600" id="techScore"></p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600">Communication</p>
+                        <p class="text-xl font-bold text-green-600" id="commScore"></p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600">Problem Solving</p>
+                        <p class="text-xl font-bold text-purple-600" id="psScore"></p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600">Overall</p>
+                        <p class="text-xl font-bold text-orange-600" id="overallScore"></p>
+                    </div>
+                </div>
+                <p class="text-gray-700 mb-4" id="feedbackText"></p>
+                <button id="nextQuestionBtn"
+                    class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">Next
+                    Question</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="summarySection" class="hidden">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Interview Summary</h2>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-green-50 p-6 rounded-lg text-center">
+                    <p class="text-gray-600 mb-2">Average Score</p>
+                    <p class="text-3xl font-bold text-green-600" id="avgScore"></p>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-lg text-center">
+                    <p class="text-gray-600 mb-2">Performance Level</p>
+                    <p class="text-xl font-bold text-blue-600" id="perfLevel"></p>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="font-semibold text-gray-800 mb-3">Score Breakdown</h3>
+                <canvas id="scoreChart"></canvas>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-3">Strengths</h3>
+                    <ul id="strengthsList" class="list-disc list-inside text-gray-600 space-y-1"></ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-3">Areas for Improvement</h3>
+                    <ul id="improvementsList" class="list-disc list-inside text-gray-600 space-y-1"></ul>
+                </div>
+            </div>
+
+            <button id="newInterviewBtn"
+                class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">Start New
+                Interview</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/interview.js"></script>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PathPilot AI{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="text-2xl font-bold">PathPilot AI</a>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="/dashboard" class="hover:text-gray-200 transition">Dashboard</a>
+                    <a href="/profile" class="hover:text-gray-200 transition">Profile</a>
+                    <a href="/roadmap/create" class="hover:text-gray-200 transition">Roadmap</a>
+                    <a href="/practice-test" class="hover:text-gray-200 transition">Practice Tests</a>
+                    <a href="/mock-interview" class="hover:text-gray-200 transition">Mock Interview</a>
+                    <a href="/skill-gap" class="hover:text-gray-200 transition">Skill Gap</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-6 py-8">
+            <div class="text-center">
+                <p class="text-gray-400">PathPilot AI - Your AI-Powered Career Mentor</p>
+                <p class="text-gray-500 text-sm mt-2">Powered by Ollama + TinyLlama and RAG Technology</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

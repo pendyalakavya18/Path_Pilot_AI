@@ -1,0 +1,47 @@
+{
+  "d6e9780a-706c-4eb1-9555-b1902c161881": {
+    "name": "kavya",
+    "skills": [
+      "data analysis",
+      "machine learning",
+      "deep learning"
+    ],
+    "experience": "Beginner",
+    "goals": "quantitative analyst",
+    "updated_at": "2026-02-22T14:26:21.692270"
+  },
+  "d2bd7b64-7eaf-4646-9705-9dca7c61df29": {
+    "name": "kyav",
+    "skills": [
+      "machine learning",
+      "data analysis",
+      "deep learning",
+      "reinforcement learning",
+      "SQL",
+      "python"
+    ],
+    "experience": "Intermediate",
+    "goals": "Machine learning Engineer",
+    "updated_at": "2026-02-22T20:45:47.220548"
+  },
+  "1e16dd37-ea10-416f-81ab-349c107a33d3": {
+    "name": "pendyala kavya",
+    "skills": [
+      "python",
+      "java"
+    ],
+    "experience": "Beginner",
+    "goals": "software engineer",
+    "updated_at": "2026-02-22T22:55:59.091859"
+  },
+  "19bc63bf-a1e4-466e-be22-5209daf031d6": {
+    "name": "pendyala kavya",
+    "skills": [
+      "python",
+      "java"
+    ],
+    "experience": "Beginner",
+    "goals": "software engineer",
+    "updated_at": "2026-02-25T12:28:57.417460"
+  }
+}

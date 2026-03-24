@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="gradient-bg text-white py-20">
+    <div class="container mx-auto px-6 text-center">
+        <h1 class="text-5xl font-bold mb-6">Welcome to PathPilot AI</h1>
+        <p class="text-xl mb-8 max-w-3xl mx-auto">Your AI-powered career guidance platform that helps you navigate from
+            dream companies to achieving them through personalized learning roadmaps, skill gap analysis, and AI-driven
+            interview preparation.</p>
+        <div class="flex justify-center space-x-4">
+            <a href="/profile"
+                class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">Get
+                Started</a>
+            <a href="/dashboard"
+                class="bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-800 transition">View
+                Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto px-6 py-16">
+    <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Core Features</h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-lg card-hover">
+            <div class="text-4xl mb-4">🗺️</div>
+            <h3 class="text-xl font-bold mb-2 text-gray-800">Learning Roadmaps</h3>
+            <p class="text-gray-600">AI-generated personalized learning paths tailored to your target role and company
+                with weekly milestones.</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg card-hover">
+            <div class="text-4xl mb-4">📊</div>
+            <h3 class="text-xl font-bold mb-2 text-gray-800">Skill Gap Analysis</h3>
+            <p class="text-gray-600">Identify skill gaps between your current profile and company-specific requirements
+                with actionable recommendations.</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg card-hover">
+            <div class="text-4xl mb-4">📝</div>
+            <h3 class="text-xl font-bold mb-2 text-gray-800">Practice Tests</h3>
+            <p class="text-gray-600">Topic-based assessments with AI-generated questions to evaluate your knowledge and
+                track improvement.</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg card-hover">
+            <div class="text-4xl mb-4">🎤</div>
+            <h3 class="text-xl font-bold mb-2 text-gray-800">Mock Interviews</h3>
+            <p class="text-gray-600">AI-powered interview practice with real-time evaluation and detailed feedback on
+                your responses.</p>
+        </div>
+    </div>
+</div>
+
+<div class="bg-gray-100 py-16">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">How It Works</h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div
+                    class="bg-purple-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                    1</div>
+                <h3 class="text-xl font-bold mb-2 text-gray-800">Create Your Profile</h3>
+                <p class="text-gray-600">Tell us about your skills, experience, and career goals.</p>
+            </div>
+
+            <div class="text-center">
+                <div
+                    class="bg-purple-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                    2</div>
+                <h3 class="text-xl font-bold mb-2 text-gray-800">Get Your Roadmap</h3>
+                <p class="text-gray-600">Receive a personalized learning plan with weekly milestones and resources.</p>
+            </div>
+
+            <div class="text-center">
+                <div
+                    class="bg-purple-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                    3</div>
+                <h3 class="text-xl font-bold mb-2 text-gray-800">Practice & Improve</h3>
+                <p class="text-gray-600">Take tests, practice interviews, and track your progress toward career
+                    readiness.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mx-auto px-6 py-16">
+    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-12 text-center text-white">
+        <h2 class="text-3xl font-bold mb-4">Ready to Start Your Career Journey?</h2>
+        <p class="text-xl mb-8">Join PathPilot AI today and transform your career preparation with AI-powered guidance.
+        </p>
+        <a href="/profile"
+            class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition inline-block">Create
+            Your Profile</a>
+    </div>
+</div>
+{% endblock %}

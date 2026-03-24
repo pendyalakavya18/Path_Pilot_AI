@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-8">
+    <h1 class="text-3xl font-bold mb-8 text-gray-800">Your Learning Roadmap</h1>
+
+    {% if roadmap %}
+    <div class="bg-white p-8 rounded-lg shadow-lg mb-8">
+        <div class="flex justify-between items-start mb-6">
+            <div>
+                <h2 class="text-2xl font-bold text-purple-600">{{ roadmap.role }} at {{ roadmap.company }}</h2>
+                <p class="text-gray-600 mt-2">{{ roadmap.duration_weeks }} week learning plan</p>
+            </div>
+            <a href="/roadmap/create"
+                class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Create New</a>
+        </div>
+
+        {% if roadmap.key_skills %}
+        <div class="mb-6">
+            <h3 class="font-semibold text-gray-700 mb-3">Key Skills to Master</h3>
+            <div class="flex flex-wrap gap-2">
+                {% for skill in roadmap.key_skills %}
+                <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">{{ skill }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if roadmap.recommended_projects %}
+        <div class="mb-6">
+            <h3 class="font-semibold text-gray-700 mb-3">Recommended Projects</h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-1">
+                {% for project in roadmap.recommended_projects %}
+                <li>{{ project }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Weekly Breakdown</h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for week in roadmap.weekly_plan %}
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
+            <div class="flex justify-between items-start mb-4">
+                <h3 class="text-xl font-bold text-purple-600">Week {{ week.week }}</h3>
+                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">{{ week.hours_per_day
+                    }}h/day</span>
+            </div>
+
+            <h4 class="font-semibold text-gray-800 mb-2">{{ week.focus }}</h4>
+
+            <div class="mb-4">
+                <p class="text-sm text-gray-500 mb-2">Topics:</p>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    {% for topic in week.topics %}
+                    <li>• {{ topic }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% if week.milestones %}
+            <div class="mb-4">
+                <p class="text-sm text-gray-500 mb-2">Milestones:</p>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    {% for milestone in week.milestones %}
+                    <li>✓ {{ milestone }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <a href="/roadmap/week/{{ loop.index }}"
+                class="block mt-4 text-center bg-purple-50 text-purple-600 py-2 rounded-lg hover:bg-purple-100 transition">View
+                Details</a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="bg-white p-12 rounded-lg shadow-lg text-center">
+        <p class="text-gray-600 mb-6">You haven't created a learning roadmap yet.</p>
+        <a href="/roadmap/create"
+            class="bg-purple-600 text-white px-8 py-3 rounded-lg hover:bg-purple-700 transition inline-block">Create
+            Your Roadmap</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

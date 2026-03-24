@@ -1,0 +1,12 @@
+{
+  "buildCommand": "echo 'No build required for static frontend'",
+  "outputDirectory": "frontend-dist",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://your-backend.onrender.com/$1"
+    }
+  ]
+}
+

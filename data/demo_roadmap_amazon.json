@@ -1,0 +1,171 @@
+{
+    "role": "Backend Engineer",
+    "company": "Amazon",
+    "duration_weeks": 10,
+    "weekly_plan": [
+        {
+            "week": 1,
+            "focus": "Java Fundamentals & OOP",
+            "topics": [
+                "Java collections: List, Map, Set, Queue",
+                "Generics and type safety",
+                "Exception handling and try-with-resources",
+                "Java 8+ features: streams, lambdas, Optional"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Implement 5 common data structures in Java",
+                "Solve 10 easy LeetCode problems using Java"
+            ]
+        },
+        {
+            "week": 2,
+            "focus": "Data Structures & Algorithms — Core",
+            "topics": [
+                "Arrays, strings, and hash maps",
+                "Two-pointer and sliding window",
+                "Recursion and call stack",
+                "Big-O complexity analysis"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Solve 20 Easy LeetCode problems",
+                "Analyze time/space complexity for each solution"
+            ]
+        },
+        {
+            "week": 3,
+            "focus": "Trees, Graphs & BFS/DFS",
+            "topics": [
+                "Binary trees and BSTs",
+                "BFS with queue for level-order traversal",
+                "DFS with recursion and explicit stack",
+                "Graph connectivity and cycle detection"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Solve 15 medium tree and graph problems",
+                "Build a graph traversal library from scratch"
+            ]
+        },
+        {
+            "week": 4,
+            "focus": "Dynamic Programming & Greedy",
+            "topics": [
+                "Memoization and tabulation patterns",
+                "Classic DP: knapsack, coin change, LCS",
+                "Greedy algorithms: interval scheduling, activity selection",
+                "Backtracking: permutations, subsets, N-queens"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Solve 15 DP problems from NeetCode 150",
+                "Identify greedy vs DP for 5 problem types"
+            ]
+        },
+        {
+            "week": 5,
+            "focus": "Databases & SQL",
+            "topics": [
+                "Relational model: normalization, foreign keys",
+                "SQL: joins, subqueries, window functions",
+                "Indexing strategies: B-tree, composite, covering indexes",
+                "ACID properties and transaction isolation"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Complete LeetCode SQL 50 study plan",
+                "Design a database schema for an e-commerce system"
+            ]
+        },
+        {
+            "week": 6,
+            "focus": "REST APIs & Microservices",
+            "topics": [
+                "RESTful API design principles",
+                "Spring Boot: controllers, services, repositories",
+                "Authentication: JWT, OAuth2",
+                "API versioning, rate limiting, and pagination"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Build a complete CRUD REST API with Spring Boot",
+                "Document the API with Swagger/OpenAPI"
+            ]
+        },
+        {
+            "week": 7,
+            "focus": "System Design Fundamentals",
+            "topics": [
+                "Scaling: load balancers, CDN, caching layers",
+                "Storage: SQL vs NoSQL decision framework",
+                "Amazon-scale architecture: SQS, SNS, DynamoDB",
+                "Design patterns: event-driven, CQRS, saga"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Design Amazon's order management system end-to-end",
+                "Design a notification system handling 1M events/day"
+            ]
+        },
+        {
+            "week": 8,
+            "focus": "Amazon Leadership Principles & Behavioral",
+            "topics": [
+                "All 16 Amazon Leadership Principles in depth",
+                "STAR method for behavioral answers",
+                "Ownership and Bias for Action stories",
+                "Delivering results and customer obsession examples"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Write 2 STAR stories for each Leadership Principle",
+                "Practice 3 mock behavioral interviews"
+            ]
+        },
+        {
+            "week": 9,
+            "focus": "AWS Services & Cloud Architecture",
+            "topics": [
+                "Core AWS: EC2, S3, RDS, Lambda, ECS",
+                "Serverless patterns and event-driven architecture",
+                "DevOps: CI/CD pipelines, CodePipeline, CodeDeploy",
+                "Observability: CloudWatch, X-Ray, alarm design"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Deploy a Spring Boot app to AWS with CI/CD",
+                "Set up CloudWatch dashboards and alarms"
+            ]
+        },
+        {
+            "week": 10,
+            "focus": "Mock Interviews & Final Preparation",
+            "topics": [
+                "Full coding mock interviews (45-min format)",
+                "System design mock with feedback",
+                "Revisit weak problem areas from LeetCode",
+                "Confidence, pacing, and communication tips"
+            ],
+            "hours_per_day": 4,
+            "milestones": [
+                "Complete 5 full mock coding + behavioral interviews",
+                "Solve 10 hard LeetCode problems under timed conditions"
+            ]
+        }
+    ],
+    "key_skills": [
+        "Java",
+        "Data Structures & Algorithms",
+        "System Design",
+        "AWS",
+        "REST APIs",
+        "SQL"
+    ],
+    "recommended_projects": [
+        "Build a scalable URL shortener with DynamoDB and Lambda",
+        "Create a real-time order tracking system with SQS and SNS",
+        "Implement a distributed cache with consistent hashing",
+        "Design and build a rate limiter service"
+    ]
+}

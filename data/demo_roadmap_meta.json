@@ -1,0 +1,171 @@
+{
+    "role": "Data Scientist",
+    "company": "Meta",
+    "duration_weeks": 10,
+    "weekly_plan": [
+        {
+            "week": 1,
+            "focus": "Python for Data Science",
+            "topics": [
+                "NumPy: arrays, broadcasting, vectorized operations",
+                "Pandas: DataFrames, groupby, merge, reshape",
+                "Matplotlib and Seaborn for exploratory visualization",
+                "Jupyter notebooks and reproducible analysis"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Complete an EDA on a real dataset (Kaggle starter)",
+                "Write a data cleaning pipeline with Pandas"
+            ]
+        },
+        {
+            "week": 2,
+            "focus": "Statistics & Probability Foundations",
+            "topics": [
+                "Descriptive statistics: mean, variance, percentiles",
+                "Probability distributions: normal, binomial, Poisson",
+                "Hypothesis testing: t-test, chi-square, ANOVA",
+                "Central Limit Theorem and confidence intervals"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Run a full A/B test analysis on a sample dataset",
+                "Implement hypothesis tests from scratch in Python"
+            ]
+        },
+        {
+            "week": 3,
+            "focus": "SQL & Data Querying at Scale",
+            "topics": [
+                "Advanced SQL: CTEs, window functions, recursive queries",
+                "Query optimization and execution plans",
+                "Presto/Hive for big data querying",
+                "Funnel analysis and cohort queries"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Complete Stratascratch SQL interview problems",
+                "Write a user retention cohort analysis in SQL"
+            ]
+        },
+        {
+            "week": 4,
+            "focus": "Machine Learning — Supervised Learning",
+            "topics": [
+                "Linear and logistic regression",
+                "Decision trees, random forests, gradient boosting",
+                "Model evaluation: precision, recall, ROC-AUC",
+                "Cross-validation and hyperparameter tuning"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Train and evaluate 3 models on a classification dataset",
+                "Write a full ML experiment with cross-validation"
+            ]
+        },
+        {
+            "week": 5,
+            "focus": "A/B Testing & Experimentation",
+            "topics": [
+                "Experiment design: control vs treatment",
+                "Statistical power and sample size calculation",
+                "Novelty effects and network interference",
+                "Meta's experimentation frameworks and principles"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Design an A/B test for a hypothetical feature launch",
+                "Analyze results including segmentation and guardrail metrics"
+            ]
+        },
+        {
+            "week": 6,
+            "focus": "Product Metrics & Analytics",
+            "topics": [
+                "DAU, MAU, retention, and engagement metrics",
+                "Defining north-star metrics for product teams",
+                "Metric trade-offs and counter-metric selection",
+                "Root-cause analysis and metric decomposition"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Define metrics for a new social feature end-to-end",
+                "Diagnose a metric drop in a mock interview scenario"
+            ]
+        },
+        {
+            "week": 7,
+            "focus": "Recommendation Systems & Ranking",
+            "topics": [
+                "Collaborative filtering and content-based filtering",
+                "Matrix factorization and SVD",
+                "Learning to rank: pointwise, pairwise, listwise",
+                "Feed ranking at Meta: EdgeRank concepts"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Build a movie recommendation system with collaborative filtering",
+                "Implement a simple learning-to-rank model"
+            ]
+        },
+        {
+            "week": 8,
+            "focus": "Deep Learning & NLP Basics",
+            "topics": [
+                "Neural networks: forward pass, backpropagation",
+                "PyTorch: tensors, autograd, model training",
+                "Transformers and BERT for text classification",
+                "Computer vision basics: CNNs for image tasks"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Fine-tune a BERT model on a text classification task",
+                "Train a CNN classifier on CIFAR-10"
+            ]
+        },
+        {
+            "week": 9,
+            "focus": "Meta Interview Preparation",
+            "topics": [
+                "Meta's mission and product ecosystem",
+                "Data science case interview framework",
+                "Behavioral interviews: impact, collaboration, growth mindset",
+                "Coding interviews: Python for ML and DSA"
+            ],
+            "hours_per_day": 3,
+            "milestones": [
+                "Practice 5 product case questions from Exponent",
+                "Solve 20 medium LeetCode problems in Python"
+            ]
+        },
+        {
+            "week": 10,
+            "focus": "Mock Interviews & Final Polish",
+            "topics": [
+                "Full mock data science case interviews",
+                "SQL mock interviews (45-min format)",
+                "ML system design: design Instagram Explore feed",
+                "Communication and structured problem-solving"
+            ],
+            "hours_per_day": 4,
+            "milestones": [
+                "Complete 4 full mock interviews across all formats",
+                "Create a personal project portfolio with 2 end-to-end projects"
+            ]
+        }
+    ],
+    "key_skills": [
+        "Python",
+        "Machine Learning",
+        "SQL",
+        "Statistics",
+        "A/B Testing",
+        "Deep Learning"
+    ],
+    "recommended_projects": [
+        "Build a news feed ranking model with LightGBM",
+        "Create an end-to-end A/B test analysis dashboard",
+        "Implement a content recommendation system from scratch",
+        "Build a real-time sentiment analysis pipeline with Kafka"
+    ]
+}

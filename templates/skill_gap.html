@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-8">
+    <h1 class="text-3xl font-bold mb-8 text-gray-800">Skill Gap Analysis</h1>
+
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto mb-8">
+        <h2 class="text-xl font-bold mb-6 text-gray-800">Select Target Company and Role</h2>
+
+        <div class="mb-6">
+            <label class="block text-gray-700 font-semibold mb-2">Company</label>
+            <input type="text" id="company"
+                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-600"
+                placeholder="e.g., Google, Netflix, Razorpay..." autocomplete="off">
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-gray-700 font-semibold mb-2">Role</label>
+            <input type="text" id="role"
+                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-600"
+                placeholder="e.g., Software Engineer, Data Analyst..." autocomplete="off">
+        </div>
+
+        <button id="analyzeBtn"
+            class="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition">
+            Analyze Skill Gap
+        </button>
+
+        <div id="loading" class="hidden mt-6 text-center">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
+            <p class="mt-4 text-gray-600">Analyzing your skill gap...</p>
+        </div>
+    </div>
+
+    <div id="resultsSection" class="hidden">
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Analysis Results</h2>
+
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">Skill Match</h3>
+                    <span class="text-2xl font-bold text-orange-600" id="gapPercentage"></span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-4">
+                    <div id="matchBar" class="bg-green-500 h-4 rounded-full transition-all duration-500"
+                        style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
+                        <span class="text-green-500 mr-2">✓</span> Matched Skills
+                    </h3>
+                    <div id="matchedSkills" class="flex flex-wrap gap-2"></div>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
+                        <span class="text-red-500 mr-2">✗</span> Missing Skills
+                    </h3>
+                    <div id="missingSkills" class="flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="font-semibold text-gray-800 mb-4">Required Skills for this Role</h3>
+                <div id="requiredSkills" class="flex flex-wrap gap-2"></div>
+            </div>
+
+            <div id="aiRecommendations" class="bg-blue-50 p-6 rounded-lg mb-6">
+                <h3 class="font-semibold text-gray-800 mb-4">AI Recommendations</h3>
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 mb-2">Priority Learning Order:</p>
+                    <ol id="priorityList" class="list-decimal list-inside text-gray-700 space-y-1"></ol>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600 mb-2">Recommendations:</p>
+                    <ul id="recommendationsList" class="list-disc list-inside text-gray-700 space-y-1"></ul>
+                </div>
+            </div>
+
+            <div class="flex gap-4">
+                <a href="/roadmap/create"
+                    class="flex-1 bg-purple-600 text-white text-center py-3 rounded-lg hover:bg-purple-700 transition">
+                    Create Learning Roadmap
+                </a>
+                <button id="newAnalysisBtn"
+                    class="flex-1 bg-orange-600 text-white py-3 rounded-lg hover:bg-orange-700 transition">
+                    New Analysis
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('analyzeBtn').addEventListener('click', function () {
+        const company = document.getElementById('company').value.trim();
+        const role = document.getElementById('role').value.trim();
+
+        if (!company || !role) {
+            alert('Please enter both company and role.');
+            return;
+        }
+
+        document.getElementById('loading').classList.remove('hidden');
+        this.disabled = true;
+
+        fetch('/api/skill-gap/analyze', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ company, role })
+        })
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('analyzeBtn').disabled = false;
+                if (data.success && data.analysis) {
+                    displayResults(data.analysis);
+                }
+            });
+    });
+
+    function displayResults(analysis) {
+        document.getElementById('resultsSection').classList.remove('hidden');
+
+        const match = 100 - analysis.gap_percentage;
+        document.getElementById('gapPercentage').textContent = `${match.toFixed(0)}% Match`;
+        document.getElementById('matchBar').style.width = `${match}%`;
+
+        const build = (containerId, skills, cls) => {
+            const div = document.getElementById(containerId);
+            div.innerHTML = '';
+            (skills || []).forEach(s => {
+                const span = document.createElement('span');
+                span.className = cls;
+                span.textContent = s;
+                div.appendChild(span);
+            });
+        };
+
+        build('matchedSkills', analysis.matched_skills, 'bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm');
+        build('missingSkills', analysis.missing_skills, 'bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm');
+        build('requiredSkills', analysis.required_skills, 'bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm');
+
+        if (analysis.ai_recommendations) {
+            const rec = analysis.ai_recommendations;
+            const priority = document.getElementById('priorityList');
+            priority.innerHTML = '';
+            (rec.priority_order || []).forEach(s => {
+                const li = document.createElement('li');
+                li.textContent = s;
+                priority.appendChild(li);
+            });
+            const recList = document.getElementById('recommendationsList');
+            recList.innerHTML = '';
+            (rec.recommendations || []).forEach(r => {
+                const li = document.createElement('li');
+                li.textContent = r;
+                recList.appendChild(li);
+            });
+        }
+
+        document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    document.getElementById('newAnalysisBtn').addEventListener('click', function () {
+        document.getElementById('resultsSection').classList.add('hidden');
+        document.getElementById('company').value = '';
+        document.getElementById('role').value = '';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+{% endblock %}

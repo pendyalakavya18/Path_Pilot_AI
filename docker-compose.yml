@@ -1,0 +1,85 @@
+version: "3.9"
+
+services:
+  # ─── PostgreSQL (Primary Database) ────────────────────────────────
+  postgres:
+    image: postgres:15-alpine
+    container_name: pathpilot_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: pathpilot_user
+      POSTGRES_PASSWORD: pathpilot_pass
+      POSTGRES_DB: pathpilot_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pathpilot_user -d pathpilot_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Redis (Caching / Rate Limiting) ──────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: pathpilot_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── FastAPI Backend ───────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: pathpilot_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://pathpilot_user:pathpilot_pass@postgres:5432/pathpilot_db
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: change-this-to-a-random-secret-in-production
+      LLM_PROVIDER: openai
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      CHROMA_PERSIST_DIR: /app/chroma_db
+      UPLOAD_DIR: /app/uploads
+      ALLOWED_ORIGINS: http://localhost:3000,http://localhost:5173
+    volumes:
+      - ./backend:/app
+      - chroma_data:/app/chroma_db
+      - upload_data:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ─── React Frontend (dev mode) ─────────────────────────────────────
+  frontend:
+    image: node:20-alpine
+    container_name: pathpilot_frontend
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host"
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  redis_data:
+  chroma_data:
+  upload_data:

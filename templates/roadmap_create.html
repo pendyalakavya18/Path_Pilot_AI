@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-8">
+    <h1 class="text-3xl font-bold mb-8 text-gray-800">Create Learning Roadmap</h1>
+
+    <!-- Generate Roadmap Form -->
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto mb-10">
+        <form id="roadmapForm">
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">Target Company</label>
+                <input type="text" id="company"
+                    class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                    placeholder="e.g., Google, Netflix, Razorpay, Any company..." required autocomplete="off">
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">Target Role</label>
+                <input type="text" id="role"
+                    class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                    placeholder="e.g., Software Engineer, Data Scientist, Backend Developer..." required
+                    autocomplete="off">
+            </div>
+
+            <div class="mb-8">
+                <label class="block text-gray-700 font-semibold mb-2">
+                    Timeline: <span id="weeksLabel" class="text-purple-600">12 weeks</span>
+                </label>
+                <input type="range" id="weeksSlider" min="4" max="24" value="12" class="w-full accent-purple-600 h-2">
+                <div class="flex justify-between text-xs text-gray-400 mt-1">
+                    <span>4 weeks</span>
+                    <span>24 weeks</span>
+                </div>
+                <input type="hidden" id="weeks" value="12">
+            </div>
+
+            <button type="submit" id="generateBtn"
+                class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+                Generate Roadmap
+            </button>
+        </form>
+
+        <div id="loading" class="hidden mt-6 text-center">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+            <p class="mt-4 text-gray-600">Generating your personalized roadmap... This may take a minute.</p>
+        </div>
+
+        <div id="message" class="mt-4 p-4 rounded-lg hidden"></div>
+    </div>
+
+    <!-- Saved Roadmaps -->
+    <div class="max-w-2xl mx-auto">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Saved Roadmaps</h2>
+        <div class="grid gap-4">
+
+            <!-- Google SWE -->
+            <a href="/roadmap/load-demo/google"
+                class="group flex items-center justify-between bg-white border border-gray-200 rounded-xl px-6 py-5 hover:border-purple-400 hover:shadow-md transition">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center text-xl font-bold text-blue-600 shrink-0">
+                        G</div>
+                    <div>
+                        <p class="font-semibold text-gray-800">Software Engineer — Google</p>
+                        <p class="text-sm text-gray-500">12 weeks · Algorithms, System Design, DSA</p>
+                    </div>
+                </div>
+                <span class="text-purple-500 text-sm font-semibold group-hover:underline">Load →</span>
+            </a>
+
+            <!-- Amazon Backend -->
+            <a href="/roadmap/load-demo/amazon"
+                class="group flex items-center justify-between bg-white border border-gray-200 rounded-xl px-6 py-5 hover:border-purple-400 hover:shadow-md transition">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-11 h-11 rounded-full bg-orange-100 flex items-center justify-center text-xl font-bold text-orange-600 shrink-0">
+                        A</div>
+                    <div>
+                        <p class="font-semibold text-gray-800">Backend Engineer — Amazon</p>
+                        <p class="text-sm text-gray-500">10 weeks · Java, AWS, REST APIs, SQL</p>
+                    </div>
+                </div>
+                <span class="text-purple-500 text-sm font-semibold group-hover:underline">Load →</span>
+            </a>
+
+            <!-- Meta Data Scientist -->
+            <a href="/roadmap/load-demo/meta"
+                class="group flex items-center justify-between bg-white border border-gray-200 rounded-xl px-6 py-5 hover:border-purple-400 hover:shadow-md transition">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-11 h-11 rounded-full bg-indigo-100 flex items-center justify-center text-xl font-bold text-indigo-600 shrink-0">
+                        M</div>
+                    <div>
+                        <p class="font-semibold text-gray-800">Data Scientist — Meta</p>
+                        <p class="text-sm text-gray-500">10 weeks · Python, ML, A/B Testing, SQL</p>
+                    </div>
+                </div>
+                <span class="text-purple-500 text-sm font-semibold group-hover:underline">Load →</span>
+            </a>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const slider = document.getElementById('weeksSlider');
+    const weeksLabel = document.getElementById('weeksLabel');
+    const weeksInput = document.getElementById('weeks');
+
+    slider.addEventListener('input', function () {
+        weeksLabel.textContent = this.value + ' weeks';
+        weeksInput.value = this.value;
+    });
+
+    document.getElementById('roadmapForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const company = document.getElementById('company').value.trim();
+        const role = document.getElementById('role').value.trim();
+        const weeks = parseInt(document.getElementById('weeks').value);
+
+        if (!company || !role) return;
+
+        const data = { role, company, weeks };
+
+        document.getElementById('loading').classList.remove('hidden');
+        document.getElementById('generateBtn').disabled = true;
+
+        fetch('/api/roadmap/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(r => r.json())
+            .then(result => {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('generateBtn').disabled = false;
+
+                if (result.success) {
+                    window.location.href = '/roadmap/view';
+                } else {
+                    const msg = document.getElementById('message');
+                    msg.textContent = 'Error generating roadmap. Please try again.';
+                    msg.className = 'mt-4 p-4 rounded-lg bg-red-100 text-red-700';
+                    msg.classList.remove('hidden');
+                }
+            })
+            .catch(() => {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('generateBtn').disabled = false;
+                const msg = document.getElementById('message');
+                msg.textContent = 'Error generating roadmap. Please try again.';
+                msg.className = 'mt-4 p-4 rounded-lg bg-red-100 text-red-700';
+                msg.classList.remove('hidden');
+            });
+    });
+</script>
+{% endblock %}

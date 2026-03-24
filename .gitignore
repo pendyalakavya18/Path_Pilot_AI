@@ -1,0 +1,38 @@
+# Environments
+.env
+.env.local
+.env.*.local
+**/.env
+
+# Dependencies
+node_modules/
+backend/.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Build outputs
+frontend/dist/
+dist/
+build/
+*.log
+
+# Databases
+*.db
+backend/chroma_db/
+chroma_db/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Project specific
+backend/uploads/
+output.txt
+IEEE_Paper_*.pdf
+archive/
+temp/

@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-8">
+    <h1 class="text-3xl font-bold mb-8 text-gray-800">Dashboard</h1>
+
+    <!-- Stats Cards -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-gradient-to-br from-purple-500 to-purple-700 p-6 rounded-xl shadow-lg text-white">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="text-purple-100 text-sm font-semibold">Overall Readiness</h3>
+                <span class="text-2xl">🎯</span>
+            </div>
+            <div class="text-3xl font-bold" id="readiness-score">-</div>
+            <p class="text-purple-200 mt-1 text-sm" id="readiness-level">Loading...</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-blue-500 to-blue-700 p-6 rounded-xl shadow-lg text-white">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="text-blue-100 text-sm font-semibold">Learning Progress</h3>
+                <span class="text-2xl">📚</span>
+            </div>
+            <div class="text-3xl font-bold" id="progress-percentage">-</div>
+            <p class="text-blue-200 mt-1 text-sm" id="progress-weeks">Loading...</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-500 to-green-700 p-6 rounded-xl shadow-lg text-white">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="text-green-100 text-sm font-semibold">Test Average</h3>
+                <span class="text-2xl">📝</span>
+            </div>
+            <div class="text-3xl font-bold" id="test-average">-</div>
+            <p class="text-green-200 mt-1 text-sm" id="test-count">Loading...</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-orange-500 to-orange-700 p-6 rounded-xl shadow-lg text-white">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="text-orange-100 text-sm font-semibold">Interview Score</h3>
+                <span class="text-2xl">🎤</span>
+            </div>
+            <div class="text-3xl font-bold" id="interview-average">-</div>
+            <p class="text-orange-200 mt-1 text-sm" id="interview-count">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Charts + Activity -->
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <!-- Radar Chart -->
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+            <h2 class="text-xl font-bold mb-4 text-gray-800">Performance Overview</h2>
+            <canvas id="radarChart"></canvas>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+            <h2 class="text-xl font-bold mb-4 text-gray-800">Recent Activity</h2>
+            <div id="activityFeed" class="space-y-3">
+                <p class="text-gray-400 text-center py-8" id="noActivity">No activity yet. Start by taking a test or
+                    mock interview!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-xl font-bold mb-4 text-gray-800">Quick Actions</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <a href="/roadmap/create"
+                class="block p-5 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl hover:shadow-md transition-all hover:-translate-y-1">
+                <div class="text-2xl mb-2">🗺️</div>
+                <h3 class="font-semibold text-purple-700">Create Roadmap</h3>
+                <p class="text-sm text-gray-600 mt-1">Generate a personalized learning path</p>
+            </a>
+            <a href="/practice-test"
+                class="block p-5 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl hover:shadow-md transition-all hover:-translate-y-1">
+                <div class="text-2xl mb-2">📝</div>
+                <h3 class="font-semibold text-blue-700">Practice Test</h3>
+                <p class="text-sm text-gray-600 mt-1">Assess your knowledge on key topics</p>
+            </a>
+            <a href="/mock-interview"
+                class="block p-5 bg-gradient-to-br from-green-50 to-green-100 rounded-xl hover:shadow-md transition-all hover:-translate-y-1">
+                <div class="text-2xl mb-2">🎤</div>
+                <h3 class="font-semibold text-green-700">Mock Interview</h3>
+                <p class="text-sm text-gray-600 mt-1">Practice with AI-powered interviews</p>
+            </a>
+            <a href="/skill-gap"
+                class="block p-5 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl hover:shadow-md transition-all hover:-translate-y-1">
+                <div class="text-2xl mb-2">📊</div>
+                <h3 class="font-semibold text-orange-700">Skill Gap</h3>
+                <p class="text-sm text-gray-600 mt-1">Compare skills with company requirements</p>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/api/progress')
+            .then(response => response.json())
+            .then(data => {
+                // Readiness
+                document.getElementById('readiness-score').textContent = data.readiness.readiness_score + '/10';
+                document.getElementById('readiness-level').textContent = data.readiness.readiness_level;
+
+                // Progress
+                document.getElementById('progress-percentage').textContent = data.progress.progress_percentage + '%';
+                document.getElementById('progress-weeks').textContent = `${data.progress.completed_weeks} of ${data.progress.total_weeks} weeks`;
+
+                // Test Average
+                document.getElementById('test-average').textContent = data.test_performance.average_score + '%';
+                document.getElementById('test-count').textContent = `${data.test_performance.total_tests} tests taken`;
+
+                // Interview Score
+                document.getElementById('interview-average').textContent = data.interview_performance.average_score + '/10';
+                document.getElementById('interview-count').textContent = `${data.interview_performance.total_interviews} interviews`;
+
+                // Radar Chart
+                const ctx = document.getElementById('radarChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Learning Progress', 'Test Scores', 'Interview Performance', 'Overall Readiness'],
+                        datasets: [{
+                            label: 'Your Performance',
+                            data: [
+                                data.readiness.breakdown.progress,
+                                data.readiness.breakdown.tests,
+                                data.readiness.breakdown.interviews,
+                                data.readiness.readiness_score
+                            ],
+                            backgroundColor: 'rgba(147, 51, 234, 0.15)',
+                            borderColor: 'rgba(147, 51, 234, 0.8)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(147, 51, 234, 1)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                max: 10,
+                                ticks: {
+                                    stepSize: 2,
+                                    font: { size: 11 }
+                                },
+                                pointLabels: {
+                                    font: { size: 12, weight: '600' }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+
+                // Activity Feed
+                const feed = document.getElementById('activityFeed');
+                const noActivity = document.getElementById('noActivity');
+                if (data.recent_activity && data.recent_activity.length > 0) {
+                    noActivity.remove();
+                    data.recent_activity.forEach(item => {
+                        const isTest = item.type === 'test';
+                        const icon = isTest ? '📝' : '🎤';
+                        const colorClass = isTest ? 'blue' : 'green';
+                        const ts = item.timestamp ? new Date(item.timestamp).toLocaleDateString('en-IN', {
+                            day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+                        }) : '';
+
+                        const div = document.createElement('div');
+                        div.className = `flex items-center justify-between p-3 bg-${colorClass}-50 rounded-lg`;
+                        div.innerHTML = `
+                            <div class="flex items-center gap-3">
+                                <span class="text-xl">${icon}</span>
+                                <div>
+                                    <p class="font-medium text-gray-800 text-sm">${item.title}</p>
+                                    <p class="text-xs text-gray-500">${ts}</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-${colorClass}-600">${item.score}</p>
+                                <p class="text-xs text-gray-500">${item.level}</p>
+                            </div>
+                        `;
+                        feed.appendChild(div);
+                    });
+                }
+            });
+    });
+</script>
+{% endblock %}

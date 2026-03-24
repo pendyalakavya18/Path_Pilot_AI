@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-8">
+    <h1 class="text-3xl font-bold mb-8 text-gray-800">Your Profile</h1>
+
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto">
+        <form id="profileForm">
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">Name</label>
+                <input type="text" id="name"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                    placeholder="Your name" value="{{ user.name if user else '' }}">
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">Skills (comma separated)</label>
+                <textarea id="skills" rows="3"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                    placeholder="Python, Machine Learning, System Design">{{ user.skills|join(', ') if user and user.skills else '' }}</textarea>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">Experience Level</label>
+                <select id="experience"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                    <option value="Beginner" {{ 'selected' if user and user.experience=='Beginner' else '' }}>Beginner
+                    </option>
+                    <option value="Intermediate" {{ 'selected' if user and user.experience=='Intermediate' else '' }}>
+                        Intermediate</option>
+                    <option value="Advanced" {{ 'selected' if user and user.experience=='Advanced' else '' }}>Advanced
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">Career Goals</label>
+                <textarea id="goals" rows="4"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                    placeholder="Describe your career aspirations...">{{ user.goals if user else '' }}</textarea>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition">Save
+                Profile</button>
+        </form>
+
+        <div id="message" class="mt-4 p-4 rounded-lg hidden"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('profileForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const skillsText = document.getElementById('skills').value;
+        const skills = skillsText.split(',').map(s => s.trim()).filter(s => s.length > 0);
+
+        const data = {
+            name: document.getElementById('name').value,
+            skills: skills,
+            experience: document.getElementById('experience').value,
+            goals: document.getElementById('goals').value
+        };
+
+        fetch('/api/profile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                const message = document.getElementById('message');
+                message.textContent = 'Profile saved successfully!';
+                message.className = 'mt-4 p-4 rounded-lg bg-green-100 text-green-700';
+                message.classList.remove('hidden');
+
+                setTimeout(() => {
+                    message.classList.add('hidden');
+                }, 3000);
+            })
+            .catch(error => {
+                const message = document.getElementById('message');
+                message.textContent = 'Error saving profile. Please try again.';
+                message.className = 'mt-4 p-4 rounded-lg bg-red-100 text-red-700';
+                message.classList.remove('hidden');
+            });
+    });
+</script>
+{% endblock %}
