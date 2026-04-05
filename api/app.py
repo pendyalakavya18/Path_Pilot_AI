@@ -26,6 +26,7 @@ if backend_dir not in sys.path:
 # 3. MANGUM ASGI ADAPTER
 try:
     from mangum import Mangum
+    # We import from backend.main to avoid any top-level module name collisions
     from backend.main import app as backend_app
     
     # Standard production root_path for Vercel
