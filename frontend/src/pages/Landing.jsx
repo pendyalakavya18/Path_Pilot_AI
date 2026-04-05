@@ -44,9 +44,6 @@ export default function Landing() {
             Start Your Journey
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
-          <Link to="/login" className="px-8 py-4 rounded-full text-lg font-semibold text-gray-300 border border-gray-700 hover:bg-gray-800 transition-colors">
-            Resume Existing Plan
-          </Link>
         </div>
       </main>
 

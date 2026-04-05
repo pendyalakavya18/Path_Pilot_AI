@@ -19,13 +19,17 @@ class WebAgent:
         query = f"{company} {role} job requirements required skills site:glassdoor.com OR site:levels.fyi OR site:linkedin.com OR site:indeed.com"
         
         try:
-            results = self.ddgs.text(query, max_results=5)
-            context = "\n".join([f"- {r['title']}: {r['body']}" for r in results])
+            results = list(self.ddgs.text(query, max_results=5))
+            if results:
+                context = "\n".join([f"- {r.get('title', '')}: {r.get('body', '')}" for r in results])
+            else:
+                context = ""
         except Exception as e:
             print(f"[WebAgent] Search failed for {company}: {e}")
-            context = "No recent web data found. Rely on general industry standards."
+            context = ""
 
-        prompt = f"""
+        if context:
+            prompt = f"""
 Based on the following real-time web search results for "{company} {role}":
 {context}
 
@@ -39,6 +43,20 @@ Respond with ONLY a JSON array of specific skill strings:
   "Prototyping",
   "Wireframing",
   "Interaction Design"
+]
+"""
+        else:
+            prompt = f"""
+You are an expert tech recruiter and technical interviewer.
+What are the 5 to 7 most critical hard skills, tools, and technical competencies currently required by {company} for the {role} role?
+Provide an extremely accurate and real-world answer based on your knowledge of "{company}". Focus strictly on the specific tools, platforms, languages, frameworks, or methodologies relevant to this specific company and profession.
+
+Respond with ONLY a JSON array of specific skill strings:
+[
+  "AWS",
+  "React",
+  "Distributed Systems",
+  "Python"
 ]
 """
         raw = await llm_engine._call(prompt)

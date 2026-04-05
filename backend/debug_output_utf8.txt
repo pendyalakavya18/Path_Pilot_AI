@@ -1,0 +1,63 @@
+﻿--- Debugging Roadmap Gen for Machine Learning Engineer at Google ---
+Sending prompt to LLM...
+
+--- RAW LLM OUTPUT ---
+[
+  {
+    "week": 1,
+    "theme": "Foundational Concepts for Machine Learning Engineer at Google",
+    "days": [
+      {"day": 1, "topic": "Introduction to TensorFlow Basics"},
+      {"day": 2, "topic": "Linear Algebra for Machine Learning Review"},
+      {"day": 3, "topic": "Python for Machine Learning Essentials"},
+      {"day": 4, "topic": "Deep Learning Introduction with Python"},
+      {"day": 5, "topic": "Mathematics for Machine Learning Fundamentals"}
+    ],
+    "hours_per_day": 2,
+    "focus": "Building core foundations specifically for Google's tech stack"
+  },
+  {
+    "week": 2,
+    "theme": "PyTorch and Deep Learning Fundamentals",
+    "days": [
+      {"day": 1, "topic": "Introduction to PyTorch Basics"},
+      {"day": 2, "topic": "Deep Learning with PyTorch"},
+      {"day": 3, "topic": "Convolutional Neural Networks (CNNs) with PyTorch"},
+      {"day": 4, "topic": "Recurrent Neural Networks (RNNs) with PyTorch"},
+      {"day": 5, "topic": "Transfer Learning with PyTorch"}
+    ],
+    "hours_per_day": 3,
+    "focus": "Focusing on PyTorch and deep learning skills"
+  },
+  {
+    "week": 3,
+    "theme": "TensorFlow, NLP, and Advanced Deep Learning",
+    "days": [
+      {"day": 1, "topic": "Advanced TensorFlow Concepts"},
+      {"day": 2, "topic": "Natural Language Processing (NLP) Basics"},
+      {"day": 3, "topic": "NLP with TensorFlow and PyTorch"},
+      {"day": 4, "topic": "Sequence-to-Sequence Models with TensorFlow and PyTorch"},
+      {"day": 5, "topic": "Attention Mechanisms in Deep Learning"}
+    ],
+    "hours_per_day": 3,
+    "focus": "Prioritizing NLP and advanced deep learning concepts"
+  },
+  {
+    "week": 4,
+    "theme": "Mock Interviews and Final Preparations",
+    "days": [
+      {"day": 1, "topic": "Machine Learning System Design Interview Practice"},
+      {"day": 2, "topic": "TensorFlow and PyTorch Implementation Interview Questions"},
+      {"day": 3, "topic": "NLP and Deep Learning Conceptual Interview Questions"},
+      {"day": 4, "topic": "Behavioral Interview Practice for Google's Culture"},
+      {"day": 5, "topic": "Final Project Presentation and Mock Interview"}
+    ],
+    "hours_per_day": 4,
+    "focus": "Preparing for the actual interview process"
+  }
+]
+--- END RAW LLM OUTPUT ---
+
+Parsed Plan Type: <class 'list'>
+Plan length: 4
+First week theme: Foundational Concepts for Machine Learning Engineer at Google

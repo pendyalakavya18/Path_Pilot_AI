@@ -207,7 +207,7 @@ Respond with ONLY a JSON array:
         raw = await self._call(prompt)
         plan = self._parse_json(raw, list)
         if not isinstance(plan, list) or not plan:
-            return self._fallback_roadmap(weeks)
+            return self._fallback_roadmap(weeks, role, company, required_skills)
         return plan
 
     async def generate_practice_test(
@@ -397,10 +397,10 @@ Generate a professional summary. Respond with ONLY JSON:
 
     # ── Fallbacks ────────────────────────────────────────────────────
 
-    def _fallback_roadmap(self, weeks: int) -> list[dict]:
+    def _fallback_roadmap(self, weeks: int, role: str, company: str, required_skills: list[str]) -> list[dict]:
         themes = [
-            "Foundations & Core Context",
-            "Key Tools & Methodologies",
+            f"Foundations & Core Context for {role}",
+            f"Key Tools & Methodologies at {company}",
             "Intermediate Application",
             "Advanced Scenarios",
             "System / Process Design",
@@ -411,14 +411,15 @@ Generate a professional summary. Respond with ONLY JSON:
             theme = themes[i % len(themes)]
             days = []
             for d in range(5):
-                days.append({"day": d + 1, "topic": f"Essential Concept {d + 1} for this Theme"})
+                skill = required_skills[d % len(required_skills)] if required_skills else f"Essential Concept {d + 1}"
+                days.append({"day": d + 1, "topic": f"Mastering {skill} for {company}"})
             
             plan.append({
                 "week": i + 1,
                 "theme": theme,
                 "days": days,
                 "hours_per_day": 2,
-                "focus": f"Mastering {theme} skills"
+                "focus": f"Mastering {theme} skills specifically tailored to {company}"
             })
         return plan
 
