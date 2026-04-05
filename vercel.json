@@ -1,12 +1,11 @@
 {
-  "buildCommand": "echo 'No build required for static frontend'",
-  "outputDirectory": "frontend-dist",
-  "framework": null,
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
+  "framework": "vite",
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://your-backend.onrender.com/$1"
+      "destination": "/api/index.py"
     }
   ]
 }
-
