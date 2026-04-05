@@ -21,11 +21,13 @@ if not os.getenv("UPLOAD_DIR"):
     os.environ["UPLOAD_DIR"] = "/tmp/uploads"
 
 try:
-    from main import app
+    from main import app as main_app
+    from fastapi import FastAPI
+    import sys
 
-    # Vercel needs standard execution layout
-    # Set root_path so FastAPI handles the /api prefix correctly in Vercel
-    app.root_path = "/api"
+    # Create a wrapper app to handle the /api prefix correctly in Vercel
+    app = FastAPI()
+    app.mount("/api", main_app)
 except Exception as e:
     import traceback
     from fastapi import FastAPI, Request
