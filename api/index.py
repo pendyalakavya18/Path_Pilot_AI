@@ -25,8 +25,8 @@ try:
     # Set the root_path for the backend app specifically
     backend_app.root_path = "/api"
     
-    # Mount the backend app
-    app.mount("/api", backend_app)
+    # Mount the backend app at the root of the wrapper, since Vercel already handles /api prefixing
+    app.mount("", backend_app)
     
 except Exception as e:
     from fastapi import FastAPI, Request
