@@ -17,6 +17,9 @@ if not os.getenv("DATABASE_URL"):
 if not os.getenv("CHROMA_PERSIST_DIR"):
     os.environ["CHROMA_PERSIST_DIR"] = "/tmp/chroma_db"
 
+if not os.getenv("UPLOAD_DIR"):
+    os.environ["UPLOAD_DIR"] = "/tmp/uploads"
+
 from main import app
 
 # Vercel needs standard execution layout
