@@ -1,6 +1,5 @@
 import os
 import sys
-import traceback
 
 # 1. Setup paths without os.chdir
 # Compute the path to the 'backend' directory
@@ -10,25 +9,19 @@ if backend_dir not in sys.path:
     sys.path.insert(0, backend_dir)
 
 # 2. Environment override for Vercel Read-Only FS
+# We must set these BEFORE importing from main to ensure they are used during initialization
 os.environ["DATABASE_URL"] = os.getenv("DATABASE_URL", "sqlite+aiosqlite:////tmp/pathpilot.db")
 os.environ["CHROMA_PERSIST_DIR"] = os.getenv("CHROMA_PERSIST_DIR", "/tmp/chroma_db")
 os.environ["UPLOAD_DIR"] = os.getenv("UPLOAD_DIR", "/tmp/uploads")
 
-# 3. Mount and configure app
+# 3. Import backend application
 try:
-    from fastapi import FastAPI
-    from main import app as backend_app
-    
-    # Create wrapper to correctly handle the /api prefix
-    app = FastAPI()
-    
-    # Set the root_path for the backend app specifically
-    backend_app.root_path = "/api"
-    
-    # Mount the backend app at the root of the wrapper, since Vercel already handles /api prefixing
-    app.mount("", backend_app)
-    
-except Exception as e:
+    from main import app
+    # Set the root_path so FastAPI strips the /api prefix from Vercel requests
+    app.root_path = "/api"
+except Exception:
+    # Fallback to diagnostic app if import fails
+    import traceback
     from fastapi import FastAPI, Request
     from fastapi.responses import PlainTextResponse
     app = FastAPI()
