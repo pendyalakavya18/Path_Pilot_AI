@@ -20,11 +20,23 @@ if not os.getenv("CHROMA_PERSIST_DIR"):
 if not os.getenv("UPLOAD_DIR"):
     os.environ["UPLOAD_DIR"] = "/tmp/uploads"
 
-from main import app
+try:
+    from main import app
 
-# Vercel needs standard execution layout
-# Set root_path so FastAPI handles the /api prefix correctly in Vercel
-app.root_path = "/api"
+    # Vercel needs standard execution layout
+    # Set root_path so FastAPI handles the /api prefix correctly in Vercel
+    app.root_path = "/api"
+except Exception as e:
+    import traceback
+    from fastapi import FastAPI, Request
+    from fastapi.responses import PlainTextResponse
+    
+    app = FastAPI()
+    err_msg = traceback.format_exc()
+    
+    @app.api_route("/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+    async def debug_error(request: Request):
+        return PlainTextResponse(f"Vercel Startup Error:\n{err_msg}", status_code=500)
 
 if __name__ == '__main__':
     import uvicorn
