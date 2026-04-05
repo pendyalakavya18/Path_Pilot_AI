@@ -1,39 +1,16 @@
-import os
-import sys
-
-# Compute the path to the 'backend' directory
-backend_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'backend')
-
-# Make absolute imports within backend/ work
-sys.path.insert(0, backend_dir)
-
-# Set the working directory so relative paths resolve correctly
-os.chdir(backend_dir)
-
-# Ensure database is writable on Vercel's ephemeral filesystem if not configured
-if not os.getenv("DATABASE_URL"):
-    os.environ["DATABASE_URL"] = "sqlite+aiosqlite:////tmp/pathpilot.db"
-    
-if not os.getenv("CHROMA_PERSIST_DIR"):
-    os.environ["CHROMA_PERSIST_DIR"] = "/tmp/chroma_db"
-
-if not os.getenv("UPLOAD_DIR"):
-    os.environ["UPLOAD_DIR"] = "/tmp/uploads"
-
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
+@app.get("/api/health")
+async def health():
+    return {"status": "ok", "message": "Minimal FastAPI on Vercel is working"}
+
 @app.api_route("/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
-async def debug_echo(request: Request, path: str):
+async def catch_all(request: Request, path: str):
     return JSONResponse({
         "received_path": path,
-        "raw_url": str(request.url),
-        "headers": dict(request.headers),
-        "scope_path": request.scope.get("path", "unknown")
+        "url_path": request.url.path,
+        "method": request.method
     })
-
-if __name__ == '__main__':
-    import uvicorn
-    uvicorn.run(app, host='0.0.0.0', port=8000)
