@@ -20,6 +20,9 @@ if not os.getenv("CHROMA_PERSIST_DIR"):
 from main import app
 
 # Vercel needs standard execution layout
+# Set root_path so FastAPI handles the /api prefix correctly in Vercel
+app.root_path = "/api"
+
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run(app, host='0.0.0.0', port=8000)
