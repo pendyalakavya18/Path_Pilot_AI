@@ -1,16 +1,16 @@
-from http.server import BaseHTTPRequestHandler
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 
-class handler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
-        self.wfile.write('{"status": "ok", "message": "Standard Python Handler is ALIVE on Vercel"}'.encode())
-        return
+app = FastAPI()
 
-    def do_POST(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
-        self.wfile.write('{"status": "ok", "message": "POST received"}'.encode())
-        return
+@app.get("/api/health")
+async def health():
+    return {"status": "ok", "message": "FastAPI Core is FUNCTIONAL on Vercel"}
+
+@app.api_route("/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+async def catch_all(request: Request, path: str):
+    return JSONResponse({
+        "received_path": path,
+        "url_path": request.url.path,
+        "method": request.method
+    })
