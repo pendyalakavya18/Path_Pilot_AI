@@ -23,7 +23,15 @@ export default function Register() {
       toast.success('Account created!')
       navigate('/profile')
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Registration failed')
+      // Safely parse FastAPI / Pydantic validation errors
+      let msg = 'Registration failed'
+      const detail = err.response?.data?.detail
+      if (typeof detail === 'string') {
+        msg = detail
+      } else if (Array.isArray(detail) && detail.length > 0) {
+        msg = detail[0].msg || 'Validation error'
+      }
+      toast.error(msg)
     } finally {
       setLoading(false)
     }
