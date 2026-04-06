@@ -21,15 +21,15 @@ export default function Profile() {
   useEffect(() => {
     if (!user) return
     setProfile({
-      name: user.name ?? '',
-      cgpa: user.cgpa ?? '',
-      branch: user.branch ?? '',
-      graduation_year: user.graduation_year ?? '',
-      experience_years: user.experience_years ?? '',
-      target_company: user.target_company ?? '',
-      target_role: user.target_role ?? '',
+      name: user?.name || '',
+      cgpa: user?.cgpa || '',
+      branch: user?.branch || '',
+      graduation_year: user?.graduation_year || '',
+      experience_years: user?.experience_years || '',
+      target_company: user?.target_company || '',
+      target_role: user?.target_role || '',
     })
-    setSkills(user.skills ?? [])
+    setSkills(user?.skills || [])
   }, [user])
 
   const saveProfile = async () => {
