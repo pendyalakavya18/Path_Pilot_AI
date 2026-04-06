@@ -9,7 +9,7 @@ const client = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true,
+  withCredentials: false,
 });
 
 if (import.meta.env.PROD) {
