@@ -58,9 +58,13 @@ class Settings:
     ALLOWED_EXTENSIONS: set = {"pdf", "docx", "doc"}
 
     # ─── CORS ───────────────────────────────────────────────────
-    ALLOWED_ORIGINS: list = os.getenv(
-        "ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:5173"
-    ).split(",")
+    ALLOWED_ORIGINS: list = [
+        origin.strip().rstrip("/")
+        for origin in os.getenv(
+            "ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:5173"
+        ).split(",")
+        if origin.strip()
+    ]
 
     # ─── Interview Scoring Weights ──────────────────────────────
     SCORING_WEIGHTS: dict = {
