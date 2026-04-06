@@ -44,7 +44,7 @@ PathPilot AI is a comprehensive, AI-powered student preparation platform designe
 | :--- | :--- | :--- |
 | **Frontend** | React, Vite, Tailwind CSS | High-performance, highly responsive, premium SPA UI. |
 | **Backend** | Python, FastAPI | Blazing fast async API for handling agent routing and data. |
-| **Database** | SQLite & SQLAlchemy | Robust relational data modeling for users and progress. |
+| **Database** | PostgreSQL & SQLite | Managed PostgreSQL for production, SQLite for local testing. |
 | **Vector DB** | ChromaDB (or Qdrant) | Semantic search for RAG pipelines and knowledge retrieval. |
 | **LLM Engine** | Groq / OpenAI / Ollama | Multi-provider fallback engine (defaults to ultra-fast Groq). |
 | **Agents** | Custom Python Agents | Independent intelligent agents for skills, roadmaps, and web search. |
@@ -112,6 +112,23 @@ npm run dev
    ```
 
 You can now access the application at `http://localhost:5173`.
+
+---
+
+## ☁️ Deployment (Render & Vercel)
+
+PathPilot AI is optimized for high-performance deployment on **Render** (Backend) and **Vercel** (Frontend).
+
+### 1. Backend (Render)
+1.  **Connect Repo**: Connect your GitHub repository to Render.
+2.  **Web Service**: Render will automatically detect the `render.yaml` file.
+3.  **Environment Variables**: Ensure you set `LLM_PROVIDER`, `GROQ_API_KEYS`, `SECRET_KEY`, and `DATABASE_URL` in the Render dashboard.
+4.  **Database**: It is highly recommended to use a **Render Managed PostgreSQL** instance for production data persistence.
+
+### 2. Frontend (Vercel)
+1.  **Connect Repo**: Import the `frontend/` directory to Vercel.
+2.  **Environment Variables**: Set `VITE_API_BASE_URL` to your Render service URL.
+3.  **Deploy**: Vercel will build and host your premium UI.
 
 ---
 
